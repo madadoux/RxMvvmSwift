@@ -8,14 +8,29 @@
 
 import Foundation
 import  RxSwift
+
+enum Authentication : Error {
+   case invalidCredintials (String)
+}
+
 class NativeLoginService : LoginService {
+    var users =   [ "mohedsh" : "12345678" ,
+                    "user1" : "12345678",
+                    "user2" : "951753" ]
+    
     func signIn(userName: String, password: String) -> Observable<User> {
         return Observable.create { observer in
-            /*
-             Networking logic here.
-             */
+            if let exsitUser =  self.users.first(where: { (arg0) -> Bool in
+                
+                let (key, value) = arg0
+                return (userName == key) && (password == value)
+            }) {
+                observer.onNext(User(name : exsitUser.key))
+            }
+            else {
+                observer.onError(Authentication.invalidCredintials("INVALID USER NAME OR PASSWORD PLEASE TRY LATER"))
+            }
             
-            observer.onNext(User(name : "ahmed")) // Simulation of successful user authentication.
             return Disposables.create()
         }
     }

@@ -41,7 +41,7 @@ class LoginViewModel : ViewModelProtocol {
     
     let input : Input
     let output: Output
-    
+    let disposeBag = DisposeBag()
     var loginServices : [String : LoginService]  = [:]
     
     func addLoginService (loginService : LoginService , name : String) {
@@ -49,20 +49,23 @@ class LoginViewModel : ViewModelProtocol {
     }
 
     init() {
-       input = Input()
+        input = Input()
         output = Output()
         
         input.signInDidTap
-            .subscribe({_ in
-            self.loginServices["native"]?
-                .signIn(userName:  try! self.input.email.value() ,
-                                                  password: try! self.input.password.value())
-                .subscribe(onNext: { (user) in
-                    self.output.loginResultObservable.onNext(user)
-                }, onError: { (err) in
-                    self.output.errorsObservable.onNext(err)
-                })
-        })
+            .subscribe({_  in 
+                self.loginServices["native"]?
+                    .signIn(userName:  try! self.input.email.value() ,
+                            password: try! self.input.password.value())
+                    .subscribe(onNext: {
+                        (user) in
+                        self.output.loginResultObservable.onNext(user)
+                    }, onError: {
+                        (err) in
+                        self.output.errorsObservable.onNext(err)
+                    }).disposed(by: self.disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
 }
 

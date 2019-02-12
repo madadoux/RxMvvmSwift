@@ -26,10 +26,13 @@ class VCLogin  : UIViewController , ControllerType {
     
     func presentError(_ e:Error? ) {
         print(e ?? "")
+        presentMessage(e?.localizedDescription ?? "")
     }
     
     func presentMessage(_ msg : String) {
-        print(msg)
+        let alert =  UIAlertController(title: "Login", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -58,16 +61,16 @@ extension VCLogin {
         signInButton.rx.tap.asObservable()
             .subscribe(viewModel.input.signInDidTap)
             .disposed(by: disposeBag)
-//
+
          viewModel.output.errorsObservable
             .subscribe({ [unowned self] (error) in
                 self.presentError(error.element)
             })
             .disposed(by: disposeBag)
-        //
-         viewModel.output.loginResultObservable
+
+        viewModel.output.loginResultObservable
             .subscribe({ [unowned self] (user) in
-                self.presentMessage("User successfully signed in \(user.element?.name)")
+                self.presentMessage("User successfully signed in \(user.element?.name ?? "")")
             })
             .disposed(by: disposeBag)
         
