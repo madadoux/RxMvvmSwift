@@ -33,8 +33,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## References
-[Reactive Programming] (https://medium.freecodecamp.org/an-introduction-to-functional-reactive-programming-in-redux-b0c14d097836)
-[Mvvm] (https://www.wintellect.com/model-view-viewmodel-mvvm-explained/)
+[Reactive Programming](https://medium.freecodecamp.org/an-introduction-to-functional-reactive-programming-in-redux-b0c14d097836)
+[Mvvm](https://www.wintellect.com/model-view-viewmodel-mvvm-explained/)
 
 
 ## License
