@@ -5,8 +5,6 @@ An example of using MVVM with Rx in iOS application , I have tried to make it ve
 This is a standard Login screen we found it in every application. 
 You can add as many as login services as you want as it confirms to the Login Service Protocol.If you like the example, Star it :D
 
-https://www.google.com/search?q=reactive+programming&oq=Reactive+pro&aqs=chrome.1.69i57j0l5.8751j0j7&sourceid=chrome&ie=UTF-8
-
 
 ## RxMvvmSwift
 
